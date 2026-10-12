@@ -12,16 +12,16 @@ export default function AboutMaestro() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden border border-zinc-700/80 shadow-2xl">
               <Image
-                src="/images/iron_boxe_coach_technique_1791833619956.jpg"
-                alt="Maestro Claudio Cricrì durante una sessione tecnica al ring di Iron Boxe"
+                src="/images/iron_boxe_main_maestro_claudio.jpg"
+                alt="Maestro Claudio Cricrì durante un match sul ring di Iron Boxe"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-center contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 right-4">
                 <p className="text-white font-bold text-lg">Maestro Claudio Cricrì</p>
-                <p className="text-zinc-300 text-xs">Proprietario &amp; Maestro Tecnico A.S.D. Iron Boxe</p>
+                <p className="text-zinc-300 text-xs">Maestro Tecnico A.S.D. Iron Boxe</p>
               </div>
             </div>
 

@@ -8,7 +8,7 @@ export default function GymGallery() {
     {
       title: "Il Ring Regolamentare",
       subtitle: "Dimensioni olimpioniche per sparring, simulazioni match e combattimenti ufficiali",
-      image: "/images/iron_boxe_hero_1791833588280.jpg",
+      image: "/images/iron_boxe_ring.jpg",
       icon: Trophy,
       span: "lg:col-span-8",
     },
@@ -58,6 +58,9 @@ export default function GymGallery() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {highlights.map((item, idx) => {
             const Icon = item.icon;
+            // Se è il primo elemento (il ring principale), diamogli la priorità per l'LCP
+            const isFirst = idx === 0;
+
             return (
               <div
                 key={idx}
@@ -68,6 +71,7 @@ export default function GymGallery() {
                   alt={item.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority={isFirst} // <--- Risolve l'avviso dell'LCP per la prima immagine
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-500 contrast-105 brightness-90"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
