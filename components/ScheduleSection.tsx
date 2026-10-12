@@ -69,17 +69,17 @@ export default function ScheduleSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">
               <span>Orari di Apertura</span>
               <span aria-hidden="true" className="text-zinc-700">·</span>
               <span>Lunedì — Sabato</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
-              Tabella Orari & Sessioni
+              Tabella Orari &amp; Sessioni
             </h2>
           </div>
           <div className="flex items-center gap-3 text-xs text-zinc-400 bg-zinc-900 px-4 py-2.5 rounded-lg border border-zinc-800">
-            <Clock className="h-4 w-4 text-red-500 shrink-0" />
+            <Clock className="h-4 w-4 text-blue-400 shrink-0" />
             <span>Aperti con orario continuato 10:00 - 22:00 (Sabato fino alle 17:00)</span>
           </div>
         </div>
@@ -95,7 +95,7 @@ export default function ScheduleSection() {
                 <span className="font-black uppercase text-base text-white tracking-wide">
                   {day.name}
                 </span>
-                <span className="text-xs font-semibold text-red-500 tabular-nums">
+                <span className="text-xs font-semibold text-blue-400 tabular-nums">
                   {day.hours}
                 </span>
               </div>

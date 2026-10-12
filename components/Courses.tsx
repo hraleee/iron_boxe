@@ -106,13 +106,13 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
-              <span>Discipline & Programmi</span>
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">
+              <span>Discipline &amp; Programmi</span>
               <span aria-hidden="true" className="text-zinc-700">·</span>
               <span>Pomigliano d&apos;Arco</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
-              I Corsi di <span className="text-red-500">Iron Boxe</span>
+              I Corsi di <span className="text-[#3b82f6]">Iron Boxe</span>
             </h2>
           </div>
           <p className="text-zinc-400 text-sm max-w-md">
@@ -131,7 +131,7 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
                 onClick={() => setActiveCourseId(course.id)}
                 className={`flex flex-col sm:flex-row items-center justify-center gap-2 py-3 px-3 rounded-lg text-xs font-bold transition-all text-center cursor-pointer ${
                   isSelected
-                    ? "bg-red-600 text-white shadow-md shadow-red-900/40"
+                    ? "bg-[#19488a] text-white shadow-md shadow-blue-950/60"
                     : "text-zinc-400 hover:text-white hover:bg-zinc-800/60"
                 }`}
               >
@@ -146,7 +146,7 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/70 p-6 sm:p-8 lg:p-10 shadow-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-7">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-red-500 mb-2">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">
                 <span>{activeCourse.intensity}</span>
                 <span aria-hidden="true" className="text-zinc-600">·</span>
                 <span>{activeCourse.target}</span>
@@ -154,7 +154,7 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
               <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
                 {activeCourse.name}
               </h3>
-              <p className="mt-2 text-sm text-amber-400/90 font-medium">
+              <p className="mt-2 text-sm text-sky-400/90 font-medium">
                 {activeCourse.tagline}
               </p>
 
@@ -165,7 +165,7 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
               <div className="mt-6 space-y-2.5">
                 {activeCourse.bullets.map((b, idx) => (
                   <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-300">
-                    <Check className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
+                    <Check className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
                     <span>{b}</span>
                   </div>
                 ))}
@@ -174,7 +174,7 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
               <div className="mt-8 flex flex-wrap items-center gap-4 pt-4 border-t border-zinc-800">
                 <button
                   onClick={() => onSelectCourseForBooking(activeCourse.name)}
-                  className="inline-flex items-center gap-2 rounded-md bg-red-600 px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/30 hover:bg-red-500 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 rounded-md bg-[#19488a] px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] transition-colors cursor-pointer"
                 >
                   <span>Prenota Prova per {activeCourse.name.split("/")[0]}</span>
                   <ArrowRight className="h-4 w-4" />
@@ -186,7 +186,7 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
             <div className="lg:col-span-5 flex flex-col gap-4">
               <div className="rounded-lg bg-zinc-950 p-6 border border-zinc-800">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-4">
-                  Dettagli & Equipaggiamento
+                  Dettagli &amp; Equipaggiamento
                 </h4>
                 <div className="space-y-4 text-xs">
                   <div>
@@ -210,8 +210,8 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
                 </div>
               </div>
 
-              <div className="rounded-lg bg-red-950/20 p-5 border border-red-900/30">
-                <p className="text-xs text-red-300 font-medium leading-relaxed">
+              <div className="rounded-lg bg-blue-950/20 p-5 border border-blue-900/30">
+                <p className="text-xs text-blue-300 font-medium leading-relaxed">
                   💡 <strong>Hai dubbi sul corso adatto a te?</strong> Prova il nostro calcolatore interattivo qui sotto o parlane direttamente con il Maestro Claudio Cricrì in palestra.
                 </p>
               </div>

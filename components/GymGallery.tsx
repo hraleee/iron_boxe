@@ -40,7 +40,7 @@ export default function GymGallery() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">
               <span>La Struttura</span>
               <span aria-hidden="true" className="text-zinc-700">·</span>
               <span>Via Tramonto, Pomigliano d&apos;Arco</span>
@@ -58,7 +58,6 @@ export default function GymGallery() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {highlights.map((item, idx) => {
             const Icon = item.icon;
-            // Se è il primo elemento (il ring principale), diamogli la priorità per l'LCP
             const isFirst = idx === 0;
 
             return (
@@ -71,13 +70,13 @@ export default function GymGallery() {
                   alt={item.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  priority={isFirst} // <--- Risolve l'avviso dell'LCP per la prima immagine
+                  priority={isFirst}
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-500 contrast-105 brightness-90"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
                 <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
-                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-red-400 mb-1.5">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1.5">
                     <Icon className="h-4 w-4" />
                     <span>Iron Boxe Gym</span>
                   </div>

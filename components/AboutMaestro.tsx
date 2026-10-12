@@ -31,13 +31,13 @@ export default function AboutMaestro() {
                 <Award className="h-4 w-4 text-amber-500 shrink-0" />
                 <span>Pugilato Federale &amp; Preparazione Tecnica</span>
               </div>
-              <span className="font-bold text-red-500 uppercase tracking-wider">Pomigliano d&apos;Arco</span>
+              <span className="font-bold text-blue-400 uppercase tracking-wider">Pomigliano d&apos;Arco</span>
             </div>
           </div>
 
           {/* Text column */}
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-3">
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-400 mb-3">
               <span>Identità &amp; Valori</span>
               <span aria-hidden="true" className="text-zinc-700">·</span>
               <span>La Vera Nobile Arte</span>
@@ -45,7 +45,7 @@ export default function AboutMaestro() {
 
             <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
               Una palestra autentica. <br className="hidden sm:inline" />
-              La guida del Maestro <span className="text-red-500">Claudio Cricrì</span>.
+              La guida del Maestro <span className="text-blue-400">Claudio Cricrì</span>.
             </h2>
 
             <p className="mt-6 text-zinc-300 text-base sm:text-lg leading-relaxed">
@@ -59,7 +59,7 @@ export default function AboutMaestro() {
             {/* Key Pillars */}
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800">
-                <div className="flex items-center gap-2 text-red-500 font-bold text-sm">
+                <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
                   <Target className="h-4 w-4" />
                   <span>Tecnica Prima di Tutto</span>
                 </div>
@@ -89,7 +89,7 @@ export default function AboutMaestro() {
               </div>
 
               <div className="p-4 rounded-lg bg-zinc-900/90 border border-zinc-800">
-                <div className="flex items-center gap-2 text-red-500 font-bold text-sm">
+                <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
                   <CheckCircle2 className="h-4 w-4" />
                   <span>Per Ogni Livello ed Età</span>
                 </div>

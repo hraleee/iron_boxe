@@ -51,7 +51,7 @@ export default function TrialBookingModal({
 
         {submitted ? (
           <div className="py-6 text-center space-y-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600/20 text-red-500 mx-auto">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600/20 text-blue-400 mx-auto">
               <CheckCircle2 className="h-8 w-8" />
             </div>
 
@@ -71,7 +71,7 @@ export default function TrialBookingModal({
                 <li>Tuta o pantaloncini e maglietta comoda</li>
                 <li>Scarpe da ginnastica pulite da cambiare all&apos;ingresso</li>
                 <li>Asciugamano e borraccia</li>
-                <li><strong className="text-red-400">Guantoni e fasce:</strong> te li prestiamo noi per la prima lezione!</li>
+                <li><strong className="text-blue-400">Guantoni e fasce:</strong> te li prestiamo noi per la prima lezione!</li>
               </ul>
               <p className="pt-2 text-zinc-500 text-[11px] border-t border-zinc-900">
                 📍 Iron Boxe · Via Tramonto, 3 – Pomigliano d&apos;Arco
@@ -80,7 +80,7 @@ export default function TrialBookingModal({
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <a
-                href={`https://wa.me/393330000000?text=Ciao%20Maestro%20Claudio,%20ho%20prenotato%20la%20prova%20per%20${encodeURIComponent(
+                href={`https://wa.me/393384800606?text=Ciao%20Maestro%20Claudio,%20ho%20prenotato%20la%20prova%20per%20${encodeURIComponent(
                   course
                 )}%20per%20${encodeURIComponent(name)}`}
                 target="_blank"
@@ -99,7 +99,7 @@ export default function TrialBookingModal({
           </div>
         ) : (
           <div>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-red-500 mb-2">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">
               <Sparkles className="h-4 w-4" />
               <span>100% Gratuita &amp; Senza Impegno</span>
             </div>
@@ -118,7 +118,7 @@ export default function TrialBookingModal({
                 <select
                   value={course}
                   onChange={(e) => setCourse(e.target.value)}
-                  className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white focus:border-red-500 focus:outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white focus:border-blue-500 focus:outline-none"
                 >
                   <option value="Gym Boxe / Pugilato Amatoriale">Gym Boxe / Pugilato Amatoriale</option>
                   <option value="Pugilato Agonistico (AOB)">Pugilato Agonistico (AOB)</option>
@@ -136,7 +136,7 @@ export default function TrialBookingModal({
                   <select
                     value={day}
                     onChange={(e) => setDay(e.target.value)}
-                    className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-white focus:border-red-500 focus:outline-none"
+                    className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none"
                   >
                     <option value="Lunedì">Lunedì</option>
                     <option value="Martedì">Martedì</option>
@@ -154,7 +154,7 @@ export default function TrialBookingModal({
                   <select
                     value={slot}
                     onChange={(e) => setSlot(e.target.value)}
-                    className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-white focus:border-red-500 focus:outline-none"
+                    className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none"
                   >
                     <option value="Mattina (10:30 - 12:30)">Mattina (10:30 - 12:30)</option>
                     <option value="Pomeriggio (16:30 - 18:30)">Pomeriggio (16:30 - 18:30)</option>
@@ -174,7 +174,7 @@ export default function TrialBookingModal({
                   placeholder="Es. Marco Esposito"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white placeholder-zinc-500 focus:border-red-500 focus:outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
@@ -188,7 +188,7 @@ export default function TrialBookingModal({
                   placeholder="Es. 333 1234567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white placeholder-zinc-500 focus:border-red-500 focus:outline-none"
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
@@ -198,7 +198,7 @@ export default function TrialBookingModal({
 
               <button
                 type="submit"
-                className="w-full rounded-md bg-red-600 py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/30 hover:bg-red-500 transition-colors cursor-pointer"
+                className="w-full rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] transition-colors cursor-pointer"
               >
                 Conferma Prenotazione Prova
               </button>

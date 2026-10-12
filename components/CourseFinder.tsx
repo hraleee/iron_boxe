@@ -30,7 +30,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
           "Perfezionamento tecnico su ring regolamentare, sparring con protezioni complete e preparazione fisica avanzata per i match.",
         times: "Pomeriggio/Sera: 18:30 – 21:00 + Rifinitura Sabato 10:00 – 13:00",
         icon: Zap,
-        accent: "text-red-500",
+        accent: "text-blue-400",
       };
     }
     if (goal === "personal") {
@@ -40,7 +40,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
           "Attenzione totale del Maestro Claudio Cricrì per correggere postura e colpi o per chi ha orari lavorativi particolari.",
         times: "Orari concordati su misura dal Lunedì al Sabato",
         icon: UserCheck,
-        accent: "text-blue-400",
+        accent: "text-sky-400",
       };
     }
     // Default fitness/stress
@@ -55,7 +55,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
           ? "Pomeriggio: 16:00 – 18:00"
           : "Sera: 19:00 – 21:30",
       icon: Dumbbell,
-      accent: "text-red-500",
+      accent: "text-blue-400",
     };
   };
 
@@ -66,7 +66,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
     <section id="quiz" className="py-20 bg-[#0e1013] border-b border-zinc-800/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
+          <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">
             <span>Guida Personalizzata</span>
             <span aria-hidden="true" className="text-zinc-700">·</span>
             <span>Trova la Tua Disciplina</span>
@@ -100,7 +100,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
                     onClick={() => setGoal(opt.id)}
                     className={`text-left p-3 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
                       goal === opt.id
-                        ? "border-red-600 bg-red-950/30 text-white shadow-sm"
+                        ? "border-blue-500 bg-blue-950/40 text-white shadow-sm"
                         : "border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
                     }`}
                   >
@@ -126,7 +126,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
                     onClick={() => setLevel(opt.id)}
                     className={`text-center p-3 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
                       level === opt.id
-                        ? "border-red-600 bg-red-950/30 text-white shadow-sm"
+                        ? "border-blue-500 bg-blue-950/40 text-white shadow-sm"
                         : "border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
                     }`}
                   >
@@ -152,7 +152,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
                     onClick={() => setAvailability(opt.id)}
                     className={`text-center p-3 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
                       availability === opt.id
-                        ? "border-red-600 bg-red-950/30 text-white shadow-sm"
+                        ? "border-blue-500 bg-blue-950/40 text-white shadow-sm"
                         : "border-zinc-800 bg-zinc-950/60 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
                     }`}
                   >
@@ -164,11 +164,11 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
           </div>
 
           {/* Result Card */}
-          <div className="lg:col-span-5 flex flex-col justify-between bg-zinc-950 rounded-xl border border-red-900/40 p-6 sm:p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="lg:col-span-5 flex flex-col justify-between bg-zinc-950 rounded-xl border border-blue-900/40 p-6 sm:p-8 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
             <div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-red-500 mb-4">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-4">
                 <CheckCircle2 className="h-4 w-4" />
                 <span>Corso Consigliato per Te</span>
               </div>
@@ -198,7 +198,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
             <div className="pt-4 border-t border-zinc-800">
               <button
                 onClick={() => onSelectCourseForBooking(rec.title)}
-                className="w-full flex items-center justify-center gap-2 rounded-md bg-red-600 py-3.5 px-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/30 hover:bg-red-500 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 rounded-md bg-[#19488a] py-3.5 px-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/60 hover:bg-[#205bb0] transition-colors cursor-pointer"
               >
                 <span>Prenota Prova Gratuita</span>
                 <ArrowRight className="h-4 w-4" />

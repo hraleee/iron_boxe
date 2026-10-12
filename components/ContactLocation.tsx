@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Phone, Clock, ExternalLink, Send, CheckCircle2, MessageSquare } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink, Send, CheckCircle2, MessageSquare, Camera } from "lucide-react";
 
 interface ContactLocationProps {
   onOpenBooking: () => void;
@@ -27,7 +27,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
           {/* Left column: Info & Location */}
           <div className="lg:col-span-6 space-y-8">
             <div>
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-400 mb-2">
                 <span>Vieni a Trovarci</span>
                 <span aria-hidden="true" className="text-zinc-700">·</span>
                 <span>Pomigliano d&apos;Arco</span>
@@ -43,7 +43,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
 
             <div className="space-y-4">
               <div className="flex items-start gap-4 p-4 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                <div className="p-3 rounded-lg bg-red-600/10 text-red-500 shrink-0">
+                <div className="p-3 rounded-lg bg-blue-600/10 text-blue-400 shrink-0">
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div>
@@ -53,7 +53,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                     href="https://www.google.com/maps/search/?api=1&query=Iron+Boxe+Via+Tramonto+3+Pomigliano+d'Arco"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-red-400 hover:text-red-300 transition-colors"
+                    className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors"
                   >
                     <span>Apri su Google Maps</span>
                     <ExternalLink className="h-3 w-3" />
@@ -62,7 +62,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
               </div>
 
               <div className="flex items-start gap-4 p-4 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                <div className="p-3 rounded-lg bg-red-600/10 text-red-500 shrink-0">
+                <div className="p-3 rounded-lg bg-blue-600/10 text-blue-400 shrink-0">
                   <Clock className="h-5 w-5" />
                 </div>
                 <div>
@@ -76,31 +76,47 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
               </div>
 
               <div className="flex items-start gap-4 p-4 rounded-xl bg-zinc-900/90 border border-zinc-800">
-                <div className="p-3 rounded-lg bg-red-600/10 text-red-500 shrink-0">
+                <div className="p-3 rounded-lg bg-blue-600/10 text-blue-400 shrink-0">
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-white uppercase">Telefono &amp; WhatsApp</h4>
                   <p className="text-xs text-zinc-300 mt-1">
-                    Scrivi o chiama per informazioni su quote, orari e iscrizioni:
+                    Scrivi o chiama direttamente il Maestro Claudio Cricrì:
                   </p>
-                  <div className="mt-2 flex flex-wrap gap-3">
+                  <a
+                    href="tel:+393384800606"
+                    className="mt-1.5 inline-block text-sm font-black text-white hover:text-blue-400 transition-colors tabular-nums"
+                  >
+                    +39 338 480 0606
+                  </a>
+                  <div className="mt-2.5 flex flex-wrap gap-2.5">
                     <a
-                      href="https://wa.me/393330000000?text=Ciao%20Maestro%20Claudio,%20vorrei%20informazioni%20sui%20corsi%20di%20Iron%20Boxe"
+                      href="https://wa.me/393384800606?text=Ciao%20Maestro%20Claudio,%20vorrei%20informazioni%20sui%20corsi%20di%20Iron%20Boxe"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded bg-emerald-600 px-3 py-1.5 text-xs font-bold uppercase text-white hover:bg-emerald-500 transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded bg-emerald-600 px-3.5 py-1.5 text-xs font-bold uppercase text-white hover:bg-emerald-500 transition-colors shadow-sm"
                     >
                       <MessageSquare className="h-3.5 w-3.5" />
-                      <span>WhatsApp Diretto</span>
+                      <span>WhatsApp</span>
+                    </a>
+                    <a
+                      href="https://www.instagram.com/iron_boxe/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded bg-gradient-to-r from-pink-600 via-rose-600 to-amber-600 px-3.5 py-1.5 text-xs font-bold uppercase text-white hover:opacity-95 transition-opacity shadow-sm"
+                    >
+                      <Camera className="h-3.5 w-3.5" />
+                      <span>Instagram</span>
+                      <ExternalLink className="h-3 w-3" />
                     </a>
                     <a
                       href="https://www.facebook.com/iron.boxe/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded bg-blue-600 px-3 py-1.5 text-xs font-bold uppercase text-white hover:bg-blue-500 transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded bg-[#19488a] px-3.5 py-1.5 text-xs font-bold uppercase text-white hover:bg-[#205bb0] transition-colors shadow-sm"
                     >
-                      <span>Facebook Iron Boxe</span>
+                      <span>Facebook</span>
                       <ExternalLink className="h-3 w-3" />
                     </a>
                   </div>
@@ -120,8 +136,8 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
               </p>
 
               {formSubmitted ? (
-                <div className="mt-8 p-6 rounded-lg bg-red-950/20 border border-red-900/40 text-center space-y-3">
-                  <CheckCircle2 className="h-10 w-10 text-red-500 mx-auto" />
+                <div className="mt-8 p-6 rounded-lg bg-blue-950/20 border border-blue-900/40 text-center space-y-3">
+                  <CheckCircle2 className="h-10 w-10 text-blue-400 mx-auto" />
                   <h4 className="text-base font-bold text-white uppercase">
                     Messaggio Ricevuto!
                   </h4>
@@ -133,7 +149,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                       setFormSubmitted(false);
                       setFormData({ name: "", phone: "", message: "" });
                     }}
-                    className="mt-3 text-xs text-red-400 hover:text-red-300 underline"
+                    className="mt-3 text-xs text-blue-400 hover:text-blue-300 underline"
                   >
                     Invia un altro messaggio
                   </button>
@@ -152,7 +168,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
-                      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-red-500 focus:outline-none transition-colors"
+                      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -168,7 +184,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                       onChange={(e) =>
                         setFormData({ ...formData, phone: e.target.value })
                       }
-                      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-red-500 focus:outline-none transition-colors"
+                      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                     />
                   </div>
 
@@ -183,13 +199,13 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                       onChange={(e) =>
                         setFormData({ ...formData, message: e.target.value })
                       }
-                      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-red-500 focus:outline-none transition-colors"
+                      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 rounded-md bg-red-600 py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/30 hover:bg-red-500 transition-colors cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2 rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] transition-colors cursor-pointer"
                   >
                     <Send className="h-4 w-4" />
                     <span>Invia Richiesta</span>
@@ -202,7 +218,7 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                       className="text-xs text-zinc-400 hover:text-white transition-colors"
                     >
                       Vuoi direttamente fare una prova?{" "}
-                      <span className="text-red-500 font-bold underline">
+                      <span className="text-blue-400 font-bold underline">
                         Prenota la Lezione di Prova Gratuita
                       </span>
                     </button>
