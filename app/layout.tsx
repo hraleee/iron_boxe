@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "A.S.D. Iron Boxe Pomigliano | Palestra di Pugilato - Maestro Claudio Cricrì",
   description:
-    "Palestra di pugilato a Pomigliano d'Arco (NA). Corsi di pugilato agonistico, amatoriale, gym boxe, settore giovanile e preparazione atletica guidati dal Maestro Claudio Cricrì.",
+    "Palestra di pugilato a Pomigliano d'Arco (NA). Corsi di pugilato agonistico, amatoriale, settore giovanile e preparazione atletica guidati dal Maestro Claudio Cricrì.",
   openGraph: {
     title: "A.S.D. Iron Boxe Pomigliano | Pugilato & Preparazione Atletica",
     description:

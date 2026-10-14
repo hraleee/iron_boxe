@@ -14,7 +14,7 @@ import TrialBookingModal from "@/components/TrialBookingModal";
 
 export default function Home() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState("Gym Boxe / Pugilato Amatoriale");
+  const [selectedCourse, setSelectedCourse] = useState("Boxe / Pugilato Amatoriale");
 
   const handleOpenBooking = (courseName?: string) => {
     if (courseName) {

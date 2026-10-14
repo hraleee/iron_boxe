@@ -11,7 +11,7 @@ export default function ScheduleSection() {
         { time: "10:00 - 13:00", title: "Open Gym & Individuali", tag: "Tutti" },
         { time: "16:30 - 18:00", title: "Settore Giovanile (Kids)", tag: "Junior" },
         { time: "18:30 - 20:30", title: "Pugilato Agonistico (AOB)", tag: "Agonisti" },
-        { time: "19:30 - 22:00", title: "Gym Boxe & Amatori Serale", tag: "Amatori" },
+        { time: "19:30 - 22:00", title: "Boxe & Amatori Serale", tag: "Amatori" },
       ],
     },
     {
@@ -19,7 +19,7 @@ export default function ScheduleSection() {
       hours: "10:00 – 22:00",
       sessions: [
         { time: "10:00 - 13:00", title: "Preparazione Atletica & Sacchi", tag: "Tutti" },
-        { time: "17:00 - 19:00", title: "Gym Boxe Pomeridiana", tag: "Amatori" },
+        { time: "17:00 - 19:00", title: "Boxe Pomeridiana", tag: "Amatori" },
         { time: "19:00 - 20:30", title: "Circuito Funzionale Potenziamento", tag: "Cardio" },
         { time: "20:30 - 22:00", title: "Tecnica Pugilistica Avanzata", tag: "Tecnica" },
       ],
@@ -31,7 +31,7 @@ export default function ScheduleSection() {
         { time: "10:00 - 13:00", title: "Open Gym & Individuali", tag: "Tutti" },
         { time: "16:30 - 18:00", title: "Settore Giovanile (Kids)", tag: "Junior" },
         { time: "18:30 - 20:30", title: "Pugilato Agonistico & Sparring", tag: "Agonisti" },
-        { time: "19:30 - 22:00", title: "Gym Boxe & Amatori Serale", tag: "Amatori" },
+        { time: "19:30 - 22:00", title: "Boxe & Amatori Serale", tag: "Amatori" },
       ],
     },
     {
@@ -39,7 +39,7 @@ export default function ScheduleSection() {
       hours: "10:00 – 22:00",
       sessions: [
         { time: "10:00 - 13:00", title: "Preparazione Atletica & Sacchi", tag: "Tutti" },
-        { time: "17:00 - 19:00", title: "Gym Boxe Pomeridiana", tag: "Amatori" },
+        { time: "17:00 - 19:00", title: "Boxe Pomeridiana", tag: "Amatori" },
         { time: "19:00 - 20:30", title: "Circuito Funzionale & Core", tag: "Cardio" },
         { time: "20:30 - 22:00", title: "Focus Mitts & Pad Work", tag: "Tecnica" },
       ],
@@ -51,7 +51,7 @@ export default function ScheduleSection() {
         { time: "10:00 - 13:00", title: "Open Gym & Individuali", tag: "Tutti" },
         { time: "16:30 - 18:00", title: "Settore Giovanile (Kids)", tag: "Junior" },
         { time: "18:30 - 20:30", title: "Pugilato Agonistico", tag: "Agonisti" },
-        { time: "19:30 - 22:00", title: "Gym Boxe & Sfogo Fine Settimana", tag: "Amatori" },
+        { time: "19:30 - 22:00", title: "Boxe & Sfogo Fine Settimana", tag: "Amatori" },
       ],
     },
     {

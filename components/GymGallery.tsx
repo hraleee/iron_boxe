@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Shield, Sparkles, Trophy, Flame } from "lucide-react";
+import { Shield, Trophy, Flame, Dumbbell } from "lucide-react";
 
 export default function GymGallery() {
   const highlights = [
@@ -23,7 +23,7 @@ export default function GymGallery() {
       title: "Sparring & Pad Work Guidato",
       subtitle: "Lavoro con i colpitori per affinare tempismo, reattività e schivate",
       image: "/images/iron_boxe_ring_action_1791833599391.jpg",
-      icon: Sparkles,
+      icon: Dumbbell,
       span: "lg:col-span-6",
     },
     {
@@ -78,7 +78,7 @@ export default function GymGallery() {
                 <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-1.5">
                     <Icon className="h-4 w-4" />
-                    <span>Iron Boxe Gym</span>
+                    <span>Iron Boxe</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
                     {item.title}

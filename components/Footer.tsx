@@ -12,7 +12,7 @@ export default function Footer() {
               <div className="relative h-10 w-10 rounded-xl overflow-hidden bg-[#19488a] border border-blue-400/40 shadow-md shadow-blue-950/60 shrink-0 p-1 flex items-center justify-center">
                 <div className="relative w-full h-full">
                   <Image
-                    src="/images/logo_iron_boxe.png"
+                    src="/images/logo_iron_boxe2.png"
                     alt="Logo Iron Boxe"
                     fill
                     sizes="40px"

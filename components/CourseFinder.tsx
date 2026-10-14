@@ -45,7 +45,7 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
     }
     // Default fitness/stress
     return {
-      title: "Gym Boxe / Pugilato Amatoriale",
+      title: "Boxe / Pugilato Amatoriale",
       reason:
         "Lavoro completo al sacco, combinazioni ai colpitori, corda e condizionamento metabolico senza colpi duri sul viso. Brucia calorie e scarica le tensioni.",
       times:

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Dumbbell, Shield, Zap, Sparkles, UserCheck, Check, ArrowRight } from "lucide-react";
+import { Dumbbell, Shield, Zap, UserCheck, Check, ArrowRight, Flame } from "lucide-react";
 
 interface CoursesProps {
   onSelectCourseForBooking: (courseName: string) => void;
@@ -10,7 +10,7 @@ interface CoursesProps {
 export const COURSES_DATA = [
   {
     id: "amatoriale",
-    name: "Gym Boxe / Pugilato Amatoriale",
+    name: "Boxe / Pugilato Amatoriale",
     tagline: "Forma fisica, riflessi e sfogo quotidiano senza colpi duri",
     icon: Dumbbell,
     target: "Uomini e donne dai 16 ai 65+ anni",
@@ -63,7 +63,7 @@ export const COURSES_DATA = [
     id: "funzionale",
     name: "Preparazione Atletica & Circuito",
     tagline: "Potenza esplosiva, fiato e condizionamento muscolare",
-    icon: Sparkles,
+    icon: Flame,
     target: "Tutti gli atleti della palestra",
     intensity: "Molto Alta",
     gear: "Scarpe stabili, asciugamano, borraccia",

@@ -22,7 +22,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
           <div className="relative h-12 w-12 sm:h-13 sm:w-13 rounded-xl overflow-hidden bg-[#19488a] shadow-lg shadow-blue-950/60 group-hover:scale-105 transition-transform shrink-0 border border-blue-400/40 p-1.5 flex items-center justify-center">
             <div className="relative w-full h-full">
               <Image
-                src="/images/logo_iron_boxe.png"
+                src="/images/logo_iron_boxe2.png"
                 alt="Logo A.S.D. Iron Boxe Pomigliano"
                 fill
                 sizes="56px"
@@ -84,15 +84,6 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
           >
             <PhoneCall className="h-3.5 w-3.5 text-blue-500" />
             <span className="tabular-nums font-semibold">+39 338 480 0606</span>
-          </a>
-          <a
-            href="https://www.instagram.com/iron_boxe/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram Iron Boxe"
-            className="hidden lg:flex items-center justify-center p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
-          >
-            <Camera className="h-4 w-4 text-pink-400" />
           </a>
           <button
             onClick={onOpenBooking}
@@ -165,16 +156,6 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
               className="py-1 hover:text-blue-400 transition-colors"
             >
               Dove Siamo &amp; Recapiti
-            </a>
-            <a
-              href="https://www.instagram.com/iron_boxe/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-1 flex items-center gap-2 text-pink-400 hover:text-pink-300 transition-colors"
-            >
-              <Camera className="h-4 w-4" />
-              <span>Instagram</span>
             </a>
             <div className="pt-2">
               <button

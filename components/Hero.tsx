@@ -41,7 +41,7 @@ export default function Hero({ onOpenBooking }: HeroProps) {
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl text-zinc-300 font-normal leading-relaxed max-w-2xl">
-            Disciplina, tecnica, sudore e rispetto. Che tu voglia salire sul ring per combattere, scaricare le tensioni quotidiane con la Gym Boxe o far crescere tuo figlio attraverso i valori dello sport, qui trovi la vera boxe.
+            Disciplina, tecnica, sudore e rispetto. Che tu voglia salire sul ring per combattere, scaricare le tensioni quotidiane con il pugilato o far crescere tuo figlio attraverso i valori dello sport, qui trovi la vera boxe.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">

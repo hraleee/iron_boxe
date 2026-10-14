@@ -12,7 +12,7 @@ interface TrialBookingModalProps {
 export default function TrialBookingModal({
   isOpen,
   onClose,
-  initialCourse = "Gym Boxe / Pugilato Amatoriale",
+  initialCourse = "Boxe / Pugilato Amatoriale",
 }: TrialBookingModalProps) {
   const [course, setCourse] = useState(initialCourse);
   const [name, setName] = useState("");
@@ -120,7 +120,7 @@ export default function TrialBookingModal({
                   onChange={(e) => setCourse(e.target.value)}
                   className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white focus:border-blue-500 focus:outline-none"
                 >
-                  <option value="Gym Boxe / Pugilato Amatoriale">Gym Boxe / Pugilato Amatoriale</option>
+                  <option value="Boxe / Pugilato Amatoriale">Boxe / Pugilato Amatoriale</option>
                   <option value="Pugilato Agonistico (AOB)">Pugilato Agonistico (AOB)</option>
                   <option value="Settore Giovanile (Kids & Junior)">Settore Giovanile (Kids & Junior 6-15 anni)</option>
                   <option value="Preparazione Atletica & Circuito">Preparazione Atletica & Circuito</option>
