@@ -46,10 +46,11 @@ export default function Hero({ onOpenBooking }: HeroProps) {
 
           <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
             <button
+              type="button"
               onClick={onOpenBooking}
               className="inline-flex items-center justify-center gap-2.5 rounded-md bg-[#19488a] px-7 py-4 text-sm font-bold uppercase tracking-wider text-white shadow-xl shadow-blue-950/50 hover:bg-[#205bb0] active:scale-98 transition-all cursor-pointer whitespace-nowrap"
             >
-              <span>Prenota una Lezione di Prova</span>
+              <span>Richiedi Info &amp; Iscrizioni</span>
               <ArrowRight className="h-4 w-4" />
             </button>
             <a

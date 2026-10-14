@@ -10,7 +10,7 @@ import ScheduleSection from "@/components/ScheduleSection";
 import GymGallery from "@/components/GymGallery";
 import ContactLocation from "@/components/ContactLocation";
 import Footer from "@/components/Footer";
-import TrialBookingModal from "@/components/TrialBookingModal";
+import InfoBookingModal from "@/components/InfoBookingModal";
 
 export default function Home() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -55,8 +55,8 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Trial Booking Modal */}
-      <TrialBookingModal
+      {/* Information & Enrollment Modal */}
+      <InfoBookingModal
         key={selectedCourse}
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}

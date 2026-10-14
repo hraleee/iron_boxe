@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Menu, X, PhoneCall, Camera } from "lucide-react";
+import { Menu, X, PhoneCall } from "lucide-react";
 
 interface NavbarProps {
   onOpenBooking: () => void;
@@ -86,20 +86,22 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             <span className="tabular-nums font-semibold">+39 338 480 0606</span>
           </a>
           <button
+            type="button"
             onClick={onOpenBooking}
             className="rounded-md bg-[#19488a] px-5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-md shadow-blue-900/30 hover:bg-[#205bb0] active:scale-95 transition-all whitespace-nowrap shrink-0 cursor-pointer"
           >
-            Prova Gratuita
+            Info &amp; Iscrizioni
           </button>
         </div>
 
         {/* Mobile menu button */}
         <div className="flex items-center gap-2 sm:hidden">
           <button
+            type="button"
             onClick={onOpenBooking}
-            className="rounded bg-[#19488a] px-3 py-1.5 text-xs font-bold uppercase text-white hover:bg-[#205bb0] transition-colors"
+            className="rounded bg-[#19488a] px-3 py-1.5 text-xs font-bold uppercase text-white hover:bg-[#205bb0] transition-colors cursor-pointer"
           >
-            Prova
+            Info
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -159,13 +161,14 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             </a>
             <div className="pt-2">
               <button
+                type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenBooking();
                 }}
-                className="w-full rounded bg-[#19488a] py-3 text-center text-xs font-bold uppercase tracking-wider text-white hover:bg-[#205bb0] transition-colors"
+                className="w-full rounded bg-[#19488a] py-3 text-center text-xs font-bold uppercase tracking-wider text-white hover:bg-[#205bb0] transition-colors cursor-pointer"
               >
-                Prenota la Tua Prova Gratuita
+                Richiedi Info &amp; Iscrizioni
               </button>
             </div>
           </div>

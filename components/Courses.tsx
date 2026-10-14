@@ -173,10 +173,11 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
 
               <div className="mt-8 flex flex-wrap items-center gap-4 pt-4 border-t border-zinc-800">
                 <button
+                  type="button"
                   onClick={() => onSelectCourseForBooking(activeCourse.name)}
                   className="inline-flex items-center gap-2 rounded-md bg-[#19488a] px-6 py-3 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] transition-colors cursor-pointer"
                 >
-                  <span>Prenota Prova per {activeCourse.name.split("/")[0]}</span>
+                  <span>Richiedi Info per {activeCourse.name.split("/")[0]}</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
@@ -202,9 +203,9 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
                     <span className="text-zinc-200">{activeCourse.gear}</span>
                   </div>
                   <div>
-                    <span className="text-zinc-500 block">Per la prima lezione di prova</span>
-                    <span className="text-emerald-400 font-medium">
-                      Ti bastano scarpe pulite, maglietta e pantaloncini. I guantoni per la prova te li prestiamo noi!
+                    <span className="text-zinc-500 block">Cosa serve per iniziare</span>
+                    <span className="text-zinc-200 font-medium">
+                      Ti bastano scarpe pulite, maglietta e pantaloncini. In palestra troverai sacchi, ring e tutta l&apos;assistenza del Maestro!
                     </span>
                   </div>
                 </div>
@@ -212,7 +213,7 @@ export default function Courses({ onSelectCourseForBooking }: CoursesProps) {
 
               <div className="rounded-lg bg-blue-950/20 p-5 border border-blue-900/30">
                 <p className="text-xs text-blue-300 font-medium leading-relaxed">
-                  💡 <strong>Hai dubbi sul corso adatto a te?</strong> Prova il nostro calcolatore interattivo qui sotto o parlane direttamente con il Maestro Claudio Cricrì in palestra.
+                  💡 <strong>Hai dubbi sul corso adatto a te?</strong> Usa il nostro selettore interattivo qui sotto o parlane direttamente con il Maestro Claudio Cricrì in palestra.
                 </p>
               </div>
             </div>

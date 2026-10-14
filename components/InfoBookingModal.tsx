@@ -1,19 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { X, CheckCircle2, Sparkles } from "lucide-react";
+import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
+import { X, CheckCircle2, Info, MessageCircle, MapPin } from "lucide-react";
 
-interface TrialBookingModalProps {
+interface InfoBookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialCourse?: string;
 }
 
-export default function TrialBookingModal({
+const emptySubscribe = () => () => {};
+
+export default function InfoBookingModal({
   isOpen,
   onClose,
   initialCourse = "Boxe / Pugilato Amatoriale",
-}: TrialBookingModalProps) {
+}: InfoBookingModalProps) {
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+
   const [course, setCourse] = useState(initialCourse);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -21,77 +30,108 @@ export default function TrialBookingModal({
   const [slot, setSlot] = useState("Sera (19:30 - 21:00)");
   const [submitted, setSubmitted] = useState(false);
 
-  if (!isOpen) return null;
+  const handleReset = useCallback(() => {
+    setSubmitted(false);
+    setName("");
+    setPhone("");
+    onClose();
+  }, [onClose]);
+
+  // Lock body scroll and handle Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleReset();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, handleReset]);
+
+  if (!isOpen || !isClient) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
 
-  const handleReset = () => {
-    setSubmitted(false);
-    setName("");
-    setPhone("");
-    onClose();
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+  const modalContent = (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-sm overflow-y-auto"
+      onClick={handleReset}
+    >
       <div
-        className="relative w-full max-w-lg rounded-2xl border border-zinc-800 bg-[#0f1115] p-6 sm:p-8 shadow-2xl text-left overflow-hidden"
+        className="relative w-full max-w-lg my-auto rounded-2xl border border-zinc-700 bg-[#0f1115] p-5 sm:p-7 shadow-2xl text-left max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
+          type="button"
           onClick={handleReset}
-          className="absolute top-5 right-5 p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
           aria-label="Chiudi finestra"
         >
           <X className="h-5 w-5" />
         </button>
 
         {submitted ? (
-          <div className="py-6 text-center space-y-4">
+          <div className="py-4 text-center space-y-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-600/20 text-blue-400 mx-auto">
               <CheckCircle2 className="h-8 w-8" />
             </div>
 
-            <h3 className="text-2xl font-black uppercase tracking-tight text-white">
-              Richiesta Prova Inviata!
+            <h3 id="modal-title" className="text-2xl font-black uppercase tracking-tight text-white">
+              Richiesta Inviata!
             </h3>
 
             <p className="text-zinc-300 text-sm max-w-sm mx-auto">
-              Ottimo, <strong>{name}</strong>! Il tuo posto per la prova di{" "}
-              <strong className="text-white">{course}</strong> è stato registrato per{" "}
+              Ottimo, <strong>{name}</strong>! La tua richiesta di informazioni per{" "}
+              <strong className="text-white">{course}</strong> è stata inviata per{" "}
               <strong>{day} ({slot})</strong>.
             </p>
 
             <div className="rounded-xl bg-zinc-950 p-4 border border-zinc-800 text-left text-xs space-y-2 mt-4">
-              <p className="font-bold uppercase text-zinc-400 tracking-wider">Cosa portare alla prova:</p>
+              <p className="font-bold uppercase text-zinc-400 tracking-wider">Cosa occorre per l&apos;iscrizione:</p>
               <ul className="text-zinc-300 space-y-1 list-disc list-inside">
+                <li>Certificato medico di idoneità sportiva</li>
                 <li>Tuta o pantaloncini e maglietta comoda</li>
-                <li>Scarpe da ginnastica pulite da cambiare all&apos;ingresso</li>
-                <li>Asciugamano e borraccia</li>
-                <li><strong className="text-blue-400">Guantoni e fasce:</strong> te li prestiamo noi per la prima lezione!</li>
+                <li>Scarpe da ginnastica pulite per la sala</li>
+                <li>Documento di riconoscimento e codice fiscale</li>
               </ul>
-              <p className="pt-2 text-zinc-500 text-[11px] border-t border-zinc-900">
-                📍 Iron Boxe · Via Tramonto, 3 – Pomigliano d&apos;Arco
+              <p className="pt-2 text-zinc-500 text-[11px] border-t border-zinc-900 flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5 text-zinc-400" />
+                <span>Iron Boxe · Via Tramonto, 3 – Pomigliano d&apos;Arco</span>
               </p>
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <a
-                href={`https://wa.me/393384800606?text=Ciao%20Maestro%20Claudio,%20ho%20prenotato%20la%20prova%20per%20${encodeURIComponent(
+                href={`https://wa.me/393384800606?text=Ciao%20Maestro%20Claudio,%20vorrei%20informazioni%20sui%20corsi%20e%20iscrizioni%20per%20${encodeURIComponent(
                   course
-                )}%20per%20${encodeURIComponent(name)}`}
+                )}%20a%20nome%20${encodeURIComponent(name)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 rounded-md bg-emerald-600 py-3 px-4 text-xs font-bold uppercase tracking-wider text-white hover:bg-emerald-500 transition-colors"
               >
-                <span>Conferma Rapida WhatsApp</span>
+                <MessageCircle className="h-4 w-4" />
+                <span>Scrivi su WhatsApp al Maestro</span>
               </a>
               <button
+                type="button"
                 onClick={handleReset}
-                className="flex-1 rounded-md bg-zinc-800 py-3 px-4 text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-700 transition-colors"
+                className="flex-1 rounded-md bg-zinc-800 py-3 px-4 text-xs font-bold uppercase tracking-wider text-zinc-300 hover:text-white hover:bg-zinc-700 transition-colors cursor-pointer"
               >
                 Chiudi
               </button>
@@ -100,17 +140,38 @@ export default function TrialBookingModal({
         ) : (
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">
-              <Sparkles className="h-4 w-4" />
-              <span>100% Gratuita &amp; Senza Impegno</span>
+              <Info className="h-4 w-4" />
+              <span>Informazioni &amp; Iscrizioni</span>
             </div>
-            <h3 className="text-2xl font-black uppercase tracking-tight text-white">
-              Prenota la Tua Lezione di Prova
+            <h3 id="modal-title" className="text-2xl font-black uppercase tracking-tight text-white">
+              Richiedi Info o Iscriviti
             </h3>
             <p className="mt-1 text-xs text-zinc-400">
-              Vieni a conoscere il Maestro Claudio Cricrì e l&apos;energia di Iron Boxe a Pomigliano d&apos;Arco.
+              Contatta la palestra o il Maestro Claudio Cricrì per orari, quote e modalità d&apos;iscrizione a Pomigliano d&apos;Arco.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-6 space-y-4 text-xs">
+            {/* Quick WhatsApp Contact Banner */}
+            <div className="mt-4 p-3 rounded-lg bg-zinc-900/80 border border-zinc-800 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded bg-emerald-600/20 text-emerald-400 shrink-0">
+                  <MessageCircle className="h-4 w-4" />
+                </div>
+                <div className="text-xs">
+                  <p className="font-semibold text-white">Preferisci parlare subito?</p>
+                  <p className="text-zinc-400 text-[11px]">Scrivi direttamente al Maestro su WhatsApp</p>
+                </div>
+              </div>
+              <a
+                href="https://wa.me/393384800606?text=Ciao%20Maestro%20Claudio,%20vorrei%20informazioni%20sui%20corsi%20di%20Iron%20Boxe"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 rounded bg-emerald-600 hover:bg-emerald-500 px-3 py-1.5 text-xs font-bold text-white transition-colors flex items-center gap-1.5"
+              >
+                <span>WhatsApp</span>
+              </a>
+            </div>
+
+            <form onSubmit={handleSubmit} className="mt-5 space-y-4 text-xs">
               <div>
                 <label className="block font-bold uppercase tracking-wider text-zinc-300 mb-1">
                   Corso di Interesse *
@@ -193,14 +254,14 @@ export default function TrialBookingModal({
               </div>
 
               <p className="text-[11px] text-zinc-500">
-                La lezione è gratuita e senza alcun obbligo d&apos;iscrizione. Ti contattiamo solo per confermarti orario e disponibilità armadietto/guantoni.
+                Ti ricontatteremo a breve per fornirti tutti i dettagli su costi, disponibilità e documenti necessari all&apos;iscrizione.
               </p>
 
               <button
                 type="submit"
-                className="w-full rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] transition-colors cursor-pointer"
+                className="w-full rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] active:scale-98 transition-all cursor-pointer"
               >
-                Conferma Prenotazione Prova
+                Invia Richiesta Informazioni / Iscrizione
               </button>
             </form>
           </div>
@@ -208,4 +269,6 @@ export default function TrialBookingModal({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

@@ -197,14 +197,15 @@ export default function CourseFinder({ onSelectCourseForBooking }: CourseFinderP
 
             <div className="pt-4 border-t border-zinc-800">
               <button
+                type="button"
                 onClick={() => onSelectCourseForBooking(rec.title)}
                 className="w-full flex items-center justify-center gap-2 rounded-md bg-[#19488a] py-3.5 px-4 text-xs sm:text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/60 hover:bg-[#205bb0] transition-colors cursor-pointer"
               >
-                <span>Prenota Prova Gratuita</span>
+                <span>Richiedi Info sul Corso</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
               <p className="text-center text-[11px] text-zinc-500 mt-2">
-                Nessun vincolo · Ti basta una maglietta e scarpe da ginnastica
+                Contatta la segreteria o vieni direttamente in sede a Pomigliano
               </p>
             </div>
           </div>

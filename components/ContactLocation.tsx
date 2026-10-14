@@ -217,9 +217,9 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                       onClick={onOpenBooking}
                       className="text-xs text-zinc-400 hover:text-white transition-colors"
                     >
-                      Vuoi direttamente fare una prova?{" "}
+                      Vuoi maggiori informazioni su corsi e costi?{" "}
                       <span className="text-blue-400 font-bold underline">
-                        Prenota la Lezione di Prova Gratuita
+                        Invia una richiesta direttamente al Maestro
                       </span>
                     </button>
                   </div>
