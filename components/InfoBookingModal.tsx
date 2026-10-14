@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
-import { X, CheckCircle2, Info, MessageCircle, MapPin } from "lucide-react";
+import { X, CheckCircle2, Info, MessageCircle, MapPin, Loader2 } from "lucide-react";
 
 interface InfoBookingModalProps {
   isOpen: boolean;
@@ -26,14 +26,18 @@ export default function InfoBookingModal({
   const [course, setCourse] = useState(initialCourse);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [day, setDay] = useState("Lunedì");
   const [slot, setSlot] = useState("Sera (19:30 - 21:00)");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleReset = useCallback(() => {
     setSubmitted(false);
+    setIsSubmitting(false);
     setName("");
     setPhone("");
+    setEmail("");
     onClose();
   }, [onClose]);
 
@@ -60,9 +64,35 @@ export default function InfoBookingModal({
 
   if (!isOpen || !isClient) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          email,
+          course,
+          day,
+          slot,
+          source: "Modale Info & Iscrizioni",
+        }),
+      });
+
+      if (!res.ok) {
+        console.warn("API invio email ha restituito uno status di avviso:", res.status);
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Errore durante l'invio form:", err);
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const modalContent = (
@@ -97,9 +127,9 @@ export default function InfoBookingModal({
             </h3>
 
             <p className="text-zinc-300 text-sm max-w-sm mx-auto">
-              Ottimo, <strong>{name}</strong>! La tua richiesta di informazioni per{" "}
-              <strong className="text-white">{course}</strong> è stata inviata per{" "}
-              <strong>{day} ({slot})</strong>.
+              Ottimo, <strong>{name}</strong>! La tua richiesta per{" "}
+              <strong className="text-white">{course}</strong> è stata recapitata via email alla segreteria per{" "}
+              <strong>{day} ({slot})</strong>. Ti ricontatteremo a breve al recapito <strong>{phone}</strong>.
             </p>
 
             <div className="rounded-xl bg-zinc-950 p-4 border border-zinc-800 text-left text-xs space-y-2 mt-4">
@@ -253,15 +283,36 @@ export default function InfoBookingModal({
                 />
               </div>
 
+              <div>
+                <label className="block font-bold uppercase tracking-wider text-zinc-300 mb-1">
+                  Email (Opzionale)
+                </label>
+                <input
+                  type="email"
+                  placeholder="Es. m.esposito@email.it"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3.5 py-2.5 text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+
               <p className="text-[11px] text-zinc-500">
-                Ti ricontatteremo a breve per fornirti tutti i dettagli su costi, disponibilità e documenti necessari all&apos;iscrizione.
+                La tua richiesta verrà inviata direttamente via email alla segreteria della palestra. Ti ricontatteremo a breve per orari, quote e iscrizione.
               </p>
 
               <button
                 type="submit"
-                className="w-full rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] active:scale-98 transition-all cursor-pointer"
+                disabled={isSubmitting}
+                className="w-full flex items-center justify-center gap-2 rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] disabled:opacity-60 active:scale-98 transition-all cursor-pointer"
               >
-                Invia Richiesta Informazioni / Iscrizione
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Invio richiesta in corso...</span>
+                  </>
+                ) : (
+                  <span>Invia Richiesta Informazioni / Iscrizione</span>
+                )}
               </button>
             </form>
           </div>

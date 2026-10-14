@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Phone, Clock, ExternalLink, Send, CheckCircle2, MessageSquare, Camera } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink, Send, CheckCircle2, MessageSquare, Camera, Loader2 } from "lucide-react";
 
 interface ContactLocationProps {
   onOpenBooking: () => void;
@@ -9,15 +9,41 @@ interface ContactLocationProps {
 
 export default function ContactLocation({ onOpenBooking }: ContactLocationProps) {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
+    email: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          message: formData.message,
+          source: "Modulo Contatti & Posizione",
+        }),
+      });
+
+      if (!res.ok) {
+        console.warn("API contatti ha risposto con codice:", res.status);
+      }
+
+      setFormSubmitted(true);
+    } catch (err) {
+      console.error("Errore invio form contatti:", err);
+      setFormSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -142,12 +168,12 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                     Messaggio Ricevuto!
                   </h4>
                   <p className="text-xs text-zinc-300">
-                    Grazie per averci contattato. Ti risponderemo a breve per darti tutti i dettagli sui corsi di Iron Boxe.
+                    Grazie per averci contattato. La tua richiesta è stata inoltrata via email alla segreteria della palestra. Ti ricontatteremo a breve per tutti i dettagli.
                   </p>
                   <button
                     onClick={() => {
                       setFormSubmitted(false);
-                      setFormData({ name: "", phone: "", message: "" });
+                      setFormData({ name: "", phone: "", email: "", message: "" });
                     }}
                     className="mt-3 text-xs text-blue-400 hover:text-blue-300 underline"
                   >
@@ -190,6 +216,21 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1.5">
+                      Email (Opzionale)
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="mario.rossi@email.it"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-1.5">
                       Messaggio o Richiesta Info
                     </label>
                     <textarea
@@ -205,10 +246,20 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] transition-colors cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full flex items-center justify-center gap-2 rounded-md bg-[#19488a] py-3.5 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-950/50 hover:bg-[#205bb0] disabled:opacity-60 transition-colors cursor-pointer"
                   >
-                    <Send className="h-4 w-4" />
-                    <span>Invia Richiesta</span>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>Invio messaggio in corso...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        <span>Invia Richiesta</span>
+                      </>
+                    )}
                   </button>
 
                   <div className="pt-2 text-center">
