@@ -31,10 +31,12 @@ export default function InfoBookingModal({
   const [slot, setSlot] = useState("Sera (19:30 - 21:00)");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleReset = useCallback(() => {
     setSubmitted(false);
     setIsSubmitting(false);
+    setSubmitError(null);
     setName("");
     setPhone("");
     setEmail("");
@@ -67,6 +69,7 @@ export default function InfoBookingModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -82,14 +85,23 @@ export default function InfoBookingModal({
         }),
       });
 
-      if (!res.ok) {
-        console.warn("API invio email ha restituito uno status di avviso:", res.status);
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || data.success === false) {
+        throw new Error(
+          data.error ||
+            "Si è verificato un errore durante l'invio. Puoi comunque contattare la palestra su WhatsApp."
+        );
       }
 
       setSubmitted(true);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Errore durante l'invio form:", err);
-      setSubmitted(true);
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "Errore durante l'invio. Contatta la palestra direttamente al 338 980 9736 o su WhatsApp."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -299,6 +311,12 @@ export default function InfoBookingModal({
               <p className="text-[11px] text-zinc-500">
                 La tua richiesta verrà inviata direttamente via email alla segreteria della palestra. Ti ricontatteremo a breve per orari, quote e iscrizione.
               </p>
+
+              {submitError && (
+                <div className="p-3 rounded-lg bg-red-950/40 border border-red-800/60 text-red-200 text-xs">
+                  {submitError}
+                </div>
+              )}
 
               <button
                 type="submit"

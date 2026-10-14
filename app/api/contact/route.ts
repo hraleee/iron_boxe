@@ -20,13 +20,13 @@ export async function POST(req: NextRequest) {
 
     if (!name || !phone) {
       return NextResponse.json(
-        { error: "Nome e telefono sono campi obbligatori." },
+        { error: "Nome e recapito telefonico sono campi obbligatori." },
         { status: 400 }
       );
     }
 
     const recipient = process.env.CONTACT_EMAIL || DEFAULT_RECIPIENT;
-    const subject = `🥊 Nuova Richiesta Iron Boxe: ${name}${course ? ` - ${course}` : ""}`;
+    const subject = `🥊 Richiesta Iron Boxe: ${name}${course ? ` - ${course}` : ""}`;
 
     const textContent = `
 Nuova richiesta ricevuta dal sito Iron Boxe:
@@ -39,7 +39,7 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
 ----------------------------------------
 `;
 
-    // Metodo 1: Se sono configurate le credenziali SMTP (es. Gmail App Password, Brevo, Sendgrid, ecc.)
+    // Metodo 1: Se sono configurate le credenziali SMTP (es. Gmail, Brevo, Sendgrid, server privato)
     if (
       process.env.SMTP_HOST &&
       process.env.SMTP_USER &&
@@ -74,7 +74,7 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
               ${slot ? `<p><strong>Fascia Oraria:</strong> ${slot}</p>` : ""}
               ${message ? `<p><strong>Messaggio:</strong><br/>${message.replace(/\n/g, "<br/>")}</p>` : ""}
             </div>
-            <p style="font-size: 12px; color: #71717a;">Email generata automaticamente dal modulo online di Iron Boxe (Pomigliano d'Arco).</p>
+            <p style="font-size: 12px; color: #71717a;">Email generata dal sito web Iron Boxe (Pomigliano d'Arco).</p>
           </div>
         `,
       });
@@ -86,11 +86,37 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
       });
     }
 
-    // Metodo 2: Inoltro automatico diretto via FormSubmit (nessuna chiave o server mail richiesto)
+    // Metodo 2: Se configurata API Key di Resend (opzionale se l'utente la aggiunge su Vercel)
+    if (process.env.RESEND_API_KEY) {
+      const resendRes = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: process.env.RESEND_FROM || "Iron Boxe <onboarding@resend.dev>",
+          to: [recipient],
+          reply_to: email || undefined,
+          subject: subject,
+          text: textContent,
+        }),
+      });
+
+      if (resendRes.ok) {
+        return NextResponse.json({
+          success: true,
+          message: "Email inviata con successo tramite Resend!",
+          recipient,
+        });
+      }
+    }
+
+    // Metodo 3: Inoltro automatico diretto via FormSubmit
     const formSubmitPayload: Record<string, string> = {
       _subject: subject,
       _template: "table",
-      "Origine Richiesta": source,
+      "Origine": source,
       "Nome e Cognome": name,
       "Recapito Telefonico": phone,
     };
@@ -108,6 +134,8 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
           Origin: "https://ironboxe.it",
           Referer: "https://ironboxe.it/",
         },
@@ -116,6 +144,20 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
     );
 
     const formSubmitData = await formSubmitRes.json().catch(() => ({}));
+
+    // Se FormSubmit rifiuta o non conferma il successo
+    if (!formSubmitRes.ok || formSubmitData?.success === "false") {
+      console.error("FormSubmit errore risposta:", formSubmitRes.status, formSubmitData);
+      return NextResponse.json(
+        {
+          error:
+            formSubmitData?.message ||
+            "Impossibile inoltrare l'email in questo momento. Per favore riprova o contattaci al 338 980 9736.",
+          success: false,
+        },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
@@ -128,7 +170,7 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
     return NextResponse.json(
       {
         error:
-          "Si è verificato un errore durante l'invio. Puoi comunque contattare direttamente la palestra su WhatsApp o telefono.",
+          "Si è verificato un errore durante l'invio. Puoi comunque contattare direttamente la palestra su WhatsApp o chiamando al 338 980 9736.",
       },
       { status: 500 }
     );

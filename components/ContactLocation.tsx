@@ -16,10 +16,12 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
     email: "",
     message: "",
   });
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -33,14 +35,23 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
         }),
       });
 
-      if (!res.ok) {
-        console.warn("API contatti ha risposto con codice:", res.status);
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || data.success === false) {
+        throw new Error(
+          data.error ||
+            "Si è verificato un errore durante l'invio. Per favore riprova o contattaci su WhatsApp."
+        );
       }
 
       setFormSubmitted(true);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Errore invio form contatti:", err);
-      setFormSubmitted(true);
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "Errore durante l'invio. Contatta la palestra direttamente al 338 980 9736 o su WhatsApp."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -243,6 +254,12 @@ export default function ContactLocation({ onOpenBooking }: ContactLocationProps)
                       className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-xs text-white placeholder-zinc-500 focus:border-blue-500 focus:outline-none transition-colors"
                     />
                   </div>
+
+                  {submitError && (
+                    <div className="p-3 rounded-lg bg-red-950/40 border border-red-800/60 text-red-200 text-xs">
+                      {submitError}
+                    </div>
+                  )}
 
                   <button
                     type="submit"
