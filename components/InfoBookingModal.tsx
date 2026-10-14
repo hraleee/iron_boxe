@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { X, CheckCircle2, Info, MessageCircle, MapPin, Loader2 } from "lucide-react";
+import { submitInquiry, buildWhatsAppInquiryLink } from "@/lib/sendInquiry";
 
 interface InfoBookingModalProps {
   isOpen: boolean;
@@ -71,36 +72,28 @@ export default function InfoBookingModal({
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          phone,
-          email,
-          course,
-          day,
-          slot,
-          source: "Modale Info & Iscrizioni",
-        }),
+      const result = await submitInquiry({
+        name,
+        phone,
+        email,
+        course,
+        day,
+        slot,
+        source: "Modale Info & Iscrizioni",
       });
 
-      const data = await res.json().catch(() => ({}));
-
-      if (!res.ok || data.success === false) {
-        throw new Error(
-          data.error ||
-            "Si è verificato un errore durante l'invio. Puoi comunque contattare la palestra su WhatsApp."
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(
+          result.error ||
+            "Impossibile inviare l'email in questo momento. Clicca sul pulsante WhatsApp qui sotto per inviare i tuoi dati direttamente al Maestro Claudio!"
         );
       }
-
-      setSubmitted(true);
     } catch (err: unknown) {
       console.error("Errore durante l'invio form:", err);
       setSubmitError(
-        err instanceof Error
-          ? err.message
-          : "Errore durante l'invio. Contatta la palestra direttamente al 338 980 9736 o su WhatsApp."
+        "Errore durante l'invio. Clicca qui sotto per inviare la richiesta subito su WhatsApp al 338 480 0606."
       );
     } finally {
       setIsSubmitting(false);
@@ -313,8 +306,17 @@ export default function InfoBookingModal({
               </p>
 
               {submitError && (
-                <div className="p-3 rounded-lg bg-red-950/40 border border-red-800/60 text-red-200 text-xs">
-                  {submitError}
+                <div className="p-3.5 rounded-lg bg-red-950/50 border border-red-800/70 text-red-200 text-xs space-y-2.5">
+                  <p>{submitError}</p>
+                  <a
+                    href={buildWhatsAppInquiryLink({ name, phone, email, course, day, slot })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 px-3 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-md shadow-emerald-950/40"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span>Invia subito su WhatsApp (Maestro Claudio)</span>
+                  </a>
                 </div>
               )}
 

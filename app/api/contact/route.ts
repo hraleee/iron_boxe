@@ -116,6 +116,7 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
     const formSubmitPayload: Record<string, string> = {
       _subject: subject,
       _template: "table",
+      _captcha: "false",
       "Origine": source,
       "Nome e Cognome": name,
       "Recapito Telefonico": phone,
@@ -127,44 +128,53 @@ Data: ${new Date().toLocaleString("it-IT", { timeZone: "Europe/Rome" })}
     if (slot) formSubmitPayload["Fascia Oraria"] = slot;
     if (message) formSubmitPayload["Messaggio"] = message;
 
-    const formSubmitRes = await fetch(
-      `https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-          Origin: "https://ironboxe.it",
-          Referer: "https://ironboxe.it/",
-        },
-        body: JSON.stringify(formSubmitPayload),
-      }
-    );
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-    const formSubmitData = await formSubmitRes.json().catch(() => ({}));
-
-    // Se FormSubmit rifiuta o non conferma il successo
-    if (!formSubmitRes.ok || formSubmitData?.success === "false") {
-      console.error("FormSubmit errore risposta:", formSubmitRes.status, formSubmitData);
-      return NextResponse.json(
+      const formSubmitRes = await fetch(
+        `https://formsubmit.co/ajax/${encodeURIComponent(recipient)}`,
         {
-          error:
-            formSubmitData?.message ||
-            "Impossibile inoltrare l'email in questo momento. Per favore riprova o contattaci al 338 980 9736.",
-          success: false,
-        },
-        { status: 502 }
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            Origin: "https://ironboxe.it",
+            Referer: "https://ironboxe.it/",
+          },
+          body: JSON.stringify(formSubmitPayload),
+          signal: controller.signal,
+        }
       );
-    }
+      clearTimeout(timeoutId);
 
-    return NextResponse.json({
-      success: true,
-      message: "Richiesta inviata con successo!",
-      recipient,
-      details: formSubmitData?.message || undefined,
-    });
+      const formSubmitData = await formSubmitRes.json().catch(() => ({}));
+
+      if (formSubmitRes.ok && formSubmitData?.success !== "false") {
+        return NextResponse.json({
+          success: true,
+          message: "Richiesta inviata con successo!",
+          recipient,
+          details: formSubmitData?.message || undefined,
+        });
+      }
+
+      console.warn("FormSubmit dal server ha fallito, segnalo fallback al client:", formSubmitRes.status, formSubmitData);
+      return NextResponse.json({
+        success: false,
+        fallbackToClient: true,
+        error: formSubmitData?.message || "FormSubmit richiede invio dal browser",
+      });
+    } catch (fsErr) {
+      console.warn("Errore rete FormSubmit dal server, fallback al client:", fsErr);
+      return NextResponse.json({
+        success: false,
+        fallbackToClient: true,
+        error: "Errore di rete server",
+      });
+    }
   } catch (error: unknown) {
     console.error("Errore durante l'invio dell'email:", error);
     return NextResponse.json(
